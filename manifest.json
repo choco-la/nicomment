@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "withNicome",
+	"description": "watch local video with nicomment",
+	"version": "1.0",
+	"icons": {
+		"48": "icons/icon48.png",
+		"96": "icons/icon96.png"
+	},
+	"applications": {
+		 "gecko": {
+		 "id": "withnicome@example.com"
+		 }
+},
+	"content_scripts": [
+		{
+			"matches": ["https://friends.nico/nicomment"],
+			"js": ["movie.js"]
+		}
+	]
+
+}
