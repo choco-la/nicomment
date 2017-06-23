@@ -84,32 +84,8 @@
 
 	function create_dnd() {
 		"use strict";
-		var dnd = document.createElement("div");
-		dnd.style.position = "absolute";
-		dnd.style.display = "block";
-		dnd.style.height = "50%";
-		dnd.style.width = "24%";
-		dnd.style.top = "0px";
-		dnd.style.right = "1%";
-
-		dnd.style.zIndex = "2";
-		dnd.style.backgroundColor = "#FF8AB9";
-		dnd.style.opacity = "0";
-		dnd.style.borderRadius = "8%";
-
+		var dnd = document.getElementsByClassName("CommentPanel is-active")[0];
 		dnd.setAttribute("draggable", "true");
-		dnd.setAttribute("class", "dnd_area");
-
-		dnd.onmouseover = function() {
-			dnd.style.opacity = "0.1";
-		}
-		dnd.onmouseout = function() {
-			dnd.style.opacity = "0";
-		}
-
-		var cmt = document.getElementsByClassName("CommentPanel is-active")[0];
-		cmt.appendChild(dnd);
-
 		dnd.addEventListener("dragover", handle_dropover, false);
 		dnd.addEventListener("drop", halt_media, false);
 		dnd.addEventListener("drop", handle_drop, false);
