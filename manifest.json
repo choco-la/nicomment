@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "withNicome",
 	"description": "watch local video with nicomment",
-	"version": "1.0",
+	"version": "1.2",
 	"icons": {
 		"48": "icons/icon48.png",
 		"96": "icons/icon96.png"
