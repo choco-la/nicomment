@@ -1,6 +1,7 @@
 (function() {
 	// to check canPlayType
 	var videoElement = document.createElement("video");
+	var audioElement = document.createElement("audio");
 
 
 	function load_file(file) {
@@ -15,8 +16,45 @@
 				else {
 					appendMedia.src = file;
 				}
-				appendMedia.create();
+
+				switch (true) {
+					case /video\/*/.test(file.type):
+						appendMedia.create("video");
+						break;
+					case /audio\/*/.test(file.type):
+						appendMedia.create("audio");
+						break;
+				}
+				appendMedia.insert();
 				appendMedia.play();
+			};
+		})(file);
+
+		reader.readAsDataURL(file);
+	}
+
+
+	function load_img(file) {
+		"use strict";
+		var reader = new FileReader();
+
+		reader.onload = (function() {
+			return function() {
+				if (appendMedia == null) {
+					var appendMedia = new MediaToAppend(file);
+				}
+				else {
+					appendMedia.src = file;
+				}
+
+				appendMedia.create("img");
+				appendMedia.mediaElem.style.width = "auto";
+				appendMedia.mediaElem.style.height = "auto";
+				appendMedia.mediaElem.style.maxWidth = "100%";
+				appendMedia.mediaElem.style.maxHeight = "100%";
+
+
+				appendMedia.insert();
 			};
 		})(file);
 
@@ -42,25 +80,40 @@
 
 		for (var i = 0, file; file = files[i]; i++) {
 			console.log("load");
-			if (videoElement.canPlayType(file.type) != "") {
-				load_file(file);
-			}
-			else {
-				console.log("cannot play");
-				return false;
+
+			switch (true) {
+				case /video\/*/.test(file.type):
+					if (videoElement.canPlayType(file.type) != "") {
+						console.log("load video");
+						load_file(file);
+					}
+					break;
+				case /audio\/*/.test(file.type):
+					if (audioElement.canPlayType(file.type) != "") {
+						console.log("load audio");
+						load_file(file);
+					}
+					break;
+				case /image\/*/.test(file.type):
+					console.log("load img");
+					load_img(file);
+					break;
 			}
 		}
 	}
 
 
-	// stop, delete video element if exists
+	// stop, delete media element if exists
 	function halt_media() {
 		"use strict";
-		if (document.querySelector("video") != null) {
-			var video = document.querySelector("video");
-			video.removeAttribute("src");
-			video.load();
-			video.parentNode.removeChild(video);
+		var media = document.getElementsByClassName("drop_media")[0];
+		if (media != undefined) {
+			media.removeAttribute("src");
+			// not to load img
+			if (media.tagName == "AUDIO" || media.tagName == "VIDEO") {
+				media.load();
+			}
+			media.parentNode.removeChild(media);
 		}
 	}
 
@@ -69,26 +122,29 @@
 		"use strict";
 		this.src = src;
 
-		this.create = function() {
+		this.create = function(tag) {
 			this.blobUrl = window.URL.createObjectURL(this.src);
-			this.videoElem = document.createElement("video");
+			this.mediaElem = document.createElement(tag);
 
-			this.videoElem.style.position = "relative";
-			this.videoElem.style.display = "block";
-			this.videoElem.style.height = "100%";
-			this.videoElem.style.width = "100%";
-			this.videoElem.style.zIndex = "-1";
+			this.mediaElem.style.position = "relative";
+			this.mediaElem.style.display = "block";
+			this.mediaElem.style.height = "100%";
+			this.mediaElem.style.width = "100%";
+			this.mediaElem.style.zIndex = "-1";
 
-			this.videoElem.setAttribute("src", this.blobUrl);
-			this.videoElem.controls = "true";
+			this.mediaElem.setAttribute("src", this.blobUrl);
+			this.mediaElem.setAttribute("class", "drop_media");
+// 			this.mediaElem.controls = "true";
+		}
 
+		this.insert = function() {
 			var screen = document.getElementsByClassName("CommentScreen")[0];
 			var layer = document.getElementsByClassName("hc-layer")[-1];
-			screen.insertBefore(this.videoElem, layer);
+			screen.insertBefore(this.mediaElem, layer);
 		}
 
 		this.play = function() {
-			this.videoElem.play();
+			this.mediaElem.play();
 		}
 	}
 
