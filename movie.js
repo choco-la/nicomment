@@ -55,6 +55,7 @@
 				appendMedia.mediaElem.style.width = "100%";
 				appendMedia.mediaElem.style.height = "100%";
 				appendMedia.mediaElem.style.backgroundSize = "cover";
+				appendMedia.mediaElem.style.backgroundPosition = "center";
 
 // 				appendMedia.mediaElem.style.opacity = "0.8";
 
