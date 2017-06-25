@@ -4,6 +4,8 @@
 	var audioElement = document.createElement("audio");
 
 
+	// video/audio
+	// append each media tag
 	function load_file(file) {
 		"use strict";
 		var reader = new FileReader();
@@ -34,6 +36,8 @@
 	}
 
 
+	// image
+	// append div tag, set image to its background
 	function load_img(file) {
 		"use strict";
 		var reader = new FileReader();
@@ -47,13 +51,15 @@
 					appendMedia.src = file;
 				}
 
-				appendMedia.create("img");
-				appendMedia.mediaElem.style.width = "auto";
-				appendMedia.mediaElem.style.height = "auto";
-				appendMedia.mediaElem.style.maxWidth = "100%";
-				appendMedia.mediaElem.style.maxHeight = "100%";
+				appendMedia.create("div");
+				appendMedia.mediaElem.style.width = "100%";
+				appendMedia.mediaElem.style.height = "100%";
+				appendMedia.mediaElem.style.backgroundSize = "cover";
 
+// 				appendMedia.mediaElem.style.opacity = "0.8";
 
+				var img = "url(" + appendMedia.blobUrl + ")";
+				appendMedia.mediaElem.style.backgroundImage = img;
 				appendMedia.insert();
 			};
 		})(file);
