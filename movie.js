@@ -8,20 +8,23 @@
 		var reader = new FileReader();
 
 		reader.onload = (function() {
-			return function(e) {
-				if (videoElement.canPlayType(file.type) != ""){
-					file.src = e.target.result;
+			return function() {
+				if (appendMedia == null) {
 					var appendMedia = new MediaToAppend(file);
-					appendMedia.create();
-					appendMedia.play();
 				}
+				else {
+					appendMedia.src = file;
+				}
+				appendMedia.create();
+				appendMedia.play();
 			};
 		})(file);
+
 		reader.readAsDataURL(file);
 	}
 
 
-	function handle_dropover(event) {
+	function handle_dragover(event) {
 		"use strict";
 		event.stopPropagation();
 		event.preventDefault();
@@ -38,8 +41,14 @@
 		var files = event.dataTransfer.files;
 
 		for (var i = 0, file; file = files[i]; i++) {
-		  console.log("load");
-		  load_file(file);
+			console.log("load");
+			if (videoElement.canPlayType(file.type) != "") {
+				load_file(file);
+			}
+			else {
+				console.log("cannot play");
+				return false;
+			}
 		}
 	}
 
@@ -59,8 +68,9 @@
 	function MediaToAppend(src) {
 		"use strict";
 		this.src = src;
-		this.blobUrl = window.URL.createObjectURL(this.src);
+
 		this.create = function() {
+			this.blobUrl = window.URL.createObjectURL(this.src);
 			this.videoElem = document.createElement("video");
 
 			this.videoElem.style.position = "relative";
@@ -76,21 +86,22 @@
 			var layer = document.getElementsByClassName("hc-layer")[-1];
 			screen.insertBefore(this.videoElem, layer);
 		}
+
 		this.play = function() {
 			this.videoElem.play();
 		}
 	}
 
 
-	function create_dnd() {
+	function create_droparea() {
 		"use strict";
-		var dnd = document.getElementsByClassName("CommentPanel is-active")[0];
-		dnd.setAttribute("draggable", "true");
-		dnd.addEventListener("dragover", handle_dropover, false);
-		dnd.addEventListener("drop", halt_media, false);
-		dnd.addEventListener("drop", handle_drop, false);
+		var dropArea = document.getElementsByClassName("CommentPanel is-active")[0];
+		dropArea.setAttribute("draggable", "true");
+		dropArea.addEventListener("dragover", handle_dragover, false);
+		dropArea.addEventListener("drop", halt_media, false);
+		dropArea.addEventListener("drop", handle_drop, false);
 	}
 
-	create_dnd();
 
+	create_droparea();
 })()
