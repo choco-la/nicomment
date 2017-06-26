@@ -3,6 +3,10 @@
 	var videoElement = document.createElement("video");
 	var audioElement = document.createElement("audio");
 
+//	/^video\/.*/ breaks syntax highlight
+	var reVideoType = new RegExp("^video/.*");
+	var reAudioType = new RegExp("^audio/.*");
+	var reImageType = new RegExp("^image/.*");
 
 	// video/audio
 	// append each media tag
@@ -20,10 +24,10 @@
 				}
 
 				switch (true) {
-					case /video\/*/.test(file.type):
+					case reVideoType.test(file.type):
 						appendMedia.create("video");
 						break;
-					case /audio\/*/.test(file.type):
+					case reAudioType.test(file.type):
 						appendMedia.create("audio");
 						break;
 				}
@@ -89,19 +93,19 @@
 			console.log("load");
 
 			switch (true) {
-				case /video\/*/.test(file.type):
+				case reVideoType.test(file.type):
 					if (videoElement.canPlayType(file.type) != "") {
 						console.log("load video");
 						load_file(file);
 					}
 					break;
-				case /audio\/*/.test(file.type):
+				case reAudioType.test(file.type):
 					if (audioElement.canPlayType(file.type) != "") {
 						console.log("load audio");
 						load_file(file);
 					}
 					break;
-				case /image\/*/.test(file.type):
+				case reImageType.test(file.type):
 					console.log("load img");
 					load_img(file);
 					break;
