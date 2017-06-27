@@ -16,12 +16,7 @@
 
 		reader.onload = (function() {
 			return function() {
-				if (appendMedia == null) {
-					var appendMedia = new MediaToAppend(file);
-				}
-				else {
-					appendMedia.src = file;
-				}
+				appendMedia.set_src(file);
 
 				switch (true) {
 					case reVideoType.test(file.type):
@@ -48,18 +43,13 @@
 
 		reader.onload = (function() {
 			return function() {
-				if (appendMedia == null) {
-					var appendMedia = new MediaToAppend(file);
-				}
-				else {
-					appendMedia.src = file;
-				}
+				appendMedia.set_src(file);
 
 				appendMedia.create("div");
 				appendMedia.mediaElem.style.width = "100%";
 				appendMedia.mediaElem.style.height = "100%";
 				appendMedia.mediaElem.style.backgroundSize = "cover";
-				appendMedia.mediaElem.style.backgroundPosition = "center";
+				appendMedia.mediaElem.style.backgroundPosition = "center center";
 
 // 				appendMedia.mediaElem.style.opacity = "0.8";
 
@@ -129,9 +119,11 @@
 	}
 
 
-	function MediaToAppend(src) {
+	function MediaToAppend() {
 		"use strict";
-		this.src = src;
+		this.set_src = function(file) {
+			this.src = file;
+		}
 
 		this.create = function(tag) {
 			this.blobUrl = window.URL.createObjectURL(this.src);
@@ -145,7 +137,8 @@
 
 			this.mediaElem.setAttribute("src", this.blobUrl);
 			this.mediaElem.setAttribute("class", "drop_media");
-// 			this.mediaElem.controls = "true";
+ 			this.mediaElem.controls = "false";
+			this.mediaElem.loop = "true";
 		}
 
 		this.insert = function() {
@@ -170,5 +163,6 @@
 	}
 
 
+	var appendMedia = new MediaToAppend();
 	create_droparea();
 })()
