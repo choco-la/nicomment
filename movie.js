@@ -8,26 +8,33 @@
 	var reAudioType = new RegExp("^audio/.*");
 	var reImageType = new RegExp("^image/.*");
 
-	// video/audio
-	// append each media tag
-	function load_file(file) {
-		"use strict";
-		var reader = new FileReader();
+	var reader = new FileReader();
 
+	function load_video(file) {
+		"use strict";
 		reader.onload = (function() {
 			return function() {
-				appendMedia.set_src(file);
+				appendVideo.set_src(file);
+				appendVideo.set_playing();
+				appendVideo.show();
+				appendVideo.play();
+			};
+		})(file);
 
-				switch (true) {
-					case reVideoType.test(file.type):
-						appendMedia.create("video");
-						break;
-					case reAudioType.test(file.type):
-						appendMedia.create("audio");
-						break;
-				}
-				appendMedia.insert();
-				appendMedia.play();
+		// dont use image to background
+		boxNode.style.backgroundImage = "none";
+		reader.readAsDataURL(file);
+	}
+
+
+	function load_audio(file) {
+		"use strict";
+		reader.onload = (function() {
+			return function() {
+				appendAudio.set_src(file);
+				appendAudio.set_playing();
+				appendAudio.show();
+				appendAudio.play();
 			};
 		})(file);
 
@@ -36,26 +43,14 @@
 
 
 	// image
-	// append div tag, set image to its background
 	function load_img(file) {
 		"use strict";
-		var reader = new FileReader();
-
 		reader.onload = (function() {
 			return function() {
-				appendMedia.set_src(file);
-
-				appendMedia.create("div");
-				appendMedia.mediaElem.style.width = "100%";
-				appendMedia.mediaElem.style.height = "100%";
-				appendMedia.mediaElem.style.backgroundSize = "cover";
-				appendMedia.mediaElem.style.backgroundPosition = "center center";
-
 // 				appendMedia.mediaElem.style.opacity = "0.8";
-
-				var img = "url(" + appendMedia.blobUrl + ")";
-				appendMedia.mediaElem.style.backgroundImage = img;
-				appendMedia.insert();
+				var blobUrl = window.URL.createObjectURL(file);
+				var img = "url(" + blobUrl + ")";
+				boxNode.style.backgroundImage = img;
 			};
 		})(file);
 
@@ -86,13 +81,13 @@
 				case reVideoType.test(file.type):
 					if (videoElement.canPlayType(file.type) != "") {
 						console.log("load video");
-						load_file(file);
+						load_video(file);
 					}
 					break;
 				case reAudioType.test(file.type):
 					if (audioElement.canPlayType(file.type) != "") {
 						console.log("load audio");
-						load_file(file);
+						load_audio(file);
 					}
 					break;
 				case reImageType.test(file.type):
@@ -107,44 +102,90 @@
 	// stop, delete media element if exists
 	function halt_media() {
 		"use strict";
-		var media = document.getElementsByClassName("drop_media")[0];
+		var media = document.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
+			console.log("rm media");
 			media.removeAttribute("src");
-			// not to load img
-			if (media.tagName == "AUDIO" || media.tagName == "VIDEO") {
-				media.load();
-			}
-			media.parentNode.removeChild(media);
+			media.load();
+			media.className = "drop_" + media.tagName.toLowerCase();
+			media.style.display = "none";
 		}
 	}
 
 
-	function MediaToAppend() {
+	// media handling constructor
+	function MediaBox() {
 		"use strict";
-		this.set_src = function(file) {
-			this.src = file;
-		}
+		this.divElem = document.createElement("div");
 
-		this.create = function(tag) {
-			this.blobUrl = window.URL.createObjectURL(this.src);
-			this.mediaElem = document.createElement(tag);
+		this.divElem.style.position = "relative";
+		this.divElem.style.display = "block";
+		this.divElem.style.height = "100%";
+		this.divElem.style.width = "100%";
+		this.divElem.style.zIndex = "-1";
+		this.divElem.setAttribute("class", "drop_media_box");
 
-			this.mediaElem.style.position = "relative";
-			this.mediaElem.style.display = "block";
-			this.mediaElem.style.height = "100%";
-			this.mediaElem.style.width = "100%";
-			this.mediaElem.style.zIndex = "-1";
-
-			this.mediaElem.setAttribute("src", this.blobUrl);
-			this.mediaElem.setAttribute("class", "drop_media");
- 			this.mediaElem.controls = "false";
-			this.mediaElem.loop = "true";
-		}
+		this.divElem.style.backgroundSize = "cover";
+		this.divElem.style.backgroundPosition = "center center";
 
 		this.insert = function() {
 			var screen = document.getElementsByClassName("CommentScreen")[0];
 			var layer = document.getElementsByClassName("hc-layer")[-1];
-			screen.insertBefore(this.mediaElem, layer);
+			screen.insertBefore(this.divElem, layer);
+		}
+	}
+
+
+	function MediaToAppend(type) {
+		"use strict";
+		this.type = type;
+		this.mediaElem = document.createElement(this.type);
+
+		this.mediaElem.style.position = "relative";
+		this.mediaElem.style.display = "none";
+		this.mediaElem.style.height = "100%";
+		this.mediaElem.style.width = "100%";
+		this.mediaElem.style.zIndex = "-1";
+
+		this.mediaElem.controls = "false";
+		this.mediaElem.loop = "true";
+
+		this.set_src = function(file) {
+			this.src = file;
+			this.blobUrl = window.URL.createObjectURL(this.src);
+			this.mediaElem.setAttribute("src", this.blobUrl);
+		}
+
+		this.set_zindex = function(num) {
+			this.mediaElem.style.zIndex = num;
+		}
+
+		this.show = function() {
+			this.mediaElem.style.display = "block";
+		}
+
+		this.hide = function() {
+			this.mediaElem.style.display = "none";
+		}
+
+		this.set_class = function(str) {
+			this.mediaElem.className = str;
+		}
+
+		this.set_playing = function() {
+			this.mediaElem.className = "drop_" + this.type + " " + "drop_playing";
+		}
+
+		this.unset_playing = function() {
+			this.mediaElem.className = "drop_" + this.type;
+		}
+
+		this.append = function(node) {
+			node.appendChild(this.mediaElem);
+		}
+
+		this.load = function() {
+			this.mediaElem.load();
 		}
 
 		this.play = function() {
@@ -163,6 +204,17 @@
 	}
 
 
-	var appendMedia = new MediaToAppend();
+	var appendBox = new MediaBox();
+	appendBox.insert();
+	var boxNode = document.getElementsByClassName("drop_media_box")[0];
+
+	var appendVideo = new MediaToAppend("video");
+	appendVideo.set_class("drop_video");
+	appendVideo.append(boxNode);
+
+	var appendAudio = new MediaToAppend("audio");
+	appendAudio.set_class("drop_audio");
+	appendAudio.append(boxNode);
+
 	create_droparea();
 })()
