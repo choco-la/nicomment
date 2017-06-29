@@ -16,9 +16,9 @@
 		{
 			"matches": ["https://friends.nico/nicomment"],
 			"js": [
-				"movie.js",
-				"mediaui.js",
-				"backimgui.js"
+				"js/movie.js",
+				"js/mediaui.js",
+				"js/backimgui.js"
 			]
 		}
 	]
