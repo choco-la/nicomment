@@ -14,7 +14,7 @@
 
 
 * パッケージ化  
-`$ zip -r addon.xpi icons/ manifest.json movie.js`
+`$ zip -r addon.xpi icons/ js/ manifest.json`
 
 
 * 動作確認環境  
