@@ -206,4 +206,5 @@
 
 	// adjust seekbar position to media currentTime
 	setInterval(adjustTime, 1000);
+	menuBoxNode.style.display = "none";
 })()

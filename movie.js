@@ -216,5 +216,17 @@
 	appendAudio.set_class("drop_audio");
 	appendAudio.append(boxNode);
 
+	var appendColor = new MediaToAppend("div");
+	appendColor.set_class("bg_color");
+	appendColor.set_zindex("-3");
+	appendColor.mediaElem.style.backgroundColor = "transparent";
+	appendColor.mediaElem.style.display = "block";
+	appendColor.mediaElem.style.position = "absolute";
+	appendColor.mediaElem.style.top = "0.0em";
+	appendColor.mediaElem.style.left = "0.0em";
+	var screen = document.getElementsByClassName("CommentScreen")[0];
+	var layer = document.getElementsByClassName("hc-layer")[-1];
+	screen.insertBefore(appendColor.mediaElem, layer);
+
 	create_droparea();
 })()
