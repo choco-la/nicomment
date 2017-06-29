@@ -15,7 +15,10 @@
 	"content_scripts": [
 		{
 			"matches": ["https://friends.nico/nicomment"],
-			"js": ["movie.js"]
+			"js": [
+				"movie.js",
+				"mediaui.js"
+			]
 		}
 	]
 

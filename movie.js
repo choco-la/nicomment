@@ -147,7 +147,7 @@
 		this.mediaElem.style.width = "100%";
 		this.mediaElem.style.zIndex = "-1";
 
-		this.mediaElem.controls = "false";
+		//this.mediaElem.controls = "false";
 		this.mediaElem.loop = "true";
 
 		this.set_src = function(file) {
