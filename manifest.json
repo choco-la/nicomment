@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "withNicome",
 	"description": "Watch local video with nicomment",
-	"version": "1.2.1",
+	"version": "1.3",
 	"icons": {
 		"48": "icons/icon48.png",
 		"96": "icons/icon96.png"
@@ -17,7 +17,8 @@
 			"matches": ["https://friends.nico/nicomment"],
 			"js": [
 				"movie.js",
-				"mediaui.js"
+				"mediaui.js",
+				"backimgui.js"
 			]
 		}
 	]
