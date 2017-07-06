@@ -1,14 +1,14 @@
 (function() {
 	// to check canPlayType
-	var videoElement = document.createElement("video");
-	var audioElement = document.createElement("audio");
+	const videoElement = document.createElement("video");
+	const audioElement = document.createElement("audio");
 
 //	/^video\/.*/ breaks syntax highlight
-	var reVideoType = new RegExp("^video/.*");
-	var reAudioType = new RegExp("^audio/.*");
-	var reImageType = new RegExp("^image/.*");
+	const reVideoType = new RegExp("^video/.*");
+	const reAudioType = new RegExp("^audio/.*");
+	const reImageType = new RegExp("^image/.*");
 
-	var reader = new FileReader();
+	const reader = new FileReader();
 
 	function load_video(file) {
 		"use strict";
@@ -48,8 +48,8 @@
 		reader.onload = (function() {
 			return function() {
 // 				appendMedia.mediaElem.style.opacity = "0.8";
-				var blobUrl = window.URL.createObjectURL(file);
-				var img = "url(" + blobUrl + ")";
+				const blobUrl = window.URL.createObjectURL(file);
+				const img = "url(" + blobUrl + ")";
 				boxNode.style.backgroundImage = img;
 			};
 		})(file);
@@ -72,9 +72,9 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		var files = event.dataTransfer.files;
+		const files = event.dataTransfer.files;
 
-		for (var i = 0, file; file = files[i]; i++) {
+		for (let i = 0, file; file = files[i]; i++) {
 			console.log("load");
 
 			switch (true) {
@@ -102,7 +102,7 @@
 	// stop, delete media element if exists
 	function halt_media() {
 		"use strict";
-		var media = document.getElementsByClassName("drop_playing")[0];
+		const media = document.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
 			console.log("rm media");
 			media.removeAttribute("src");
@@ -129,8 +129,8 @@
 		this.divElem.style.backgroundPosition = "center center";
 
 		this.insert = function() {
-			var screen = document.getElementsByClassName("CommentScreen")[0];
-			var layer = document.getElementsByClassName("hc-layer")[-1];
+			const screen = document.getElementsByClassName("CommentScreen")[0];
+			const layer = document.getElementsByClassName("hc-layer")[-1];
 			screen.insertBefore(this.divElem, layer);
 		}
 	}
@@ -196,7 +196,7 @@
 
 	function create_droparea() {
 		"use strict";
-		var dropArea = document.getElementsByClassName("CommentPanel is-active")[0];
+		const dropArea = document.getElementsByClassName("CommentPanel is-active")[0];
 		dropArea.setAttribute("draggable", "true");
 		dropArea.addEventListener("dragover", handle_dragover, false);
 		dropArea.addEventListener("drop", halt_media, false);
@@ -204,19 +204,19 @@
 	}
 
 
-	var appendBox = new MediaBox();
+	const appendBox = new MediaBox();
 	appendBox.insert();
-	var boxNode = document.getElementsByClassName("drop_media_box")[0];
+	const boxNode = document.getElementsByClassName("drop_media_box")[0];
 
-	var appendVideo = new MediaToAppend("video");
+	const appendVideo = new MediaToAppend("video");
 	appendVideo.set_class("drop_video");
 	appendVideo.append(boxNode);
 
-	var appendAudio = new MediaToAppend("audio");
+	const appendAudio = new MediaToAppend("audio");
 	appendAudio.set_class("drop_audio");
 	appendAudio.append(boxNode);
 
-	var appendColor = new MediaToAppend("div");
+	const appendColor = new MediaToAppend("div");
 	appendColor.set_class("bg_color");
 	appendColor.set_zindex("-3");
 	appendColor.mediaElem.style.backgroundColor = "transparent";
@@ -224,8 +224,8 @@
 	appendColor.mediaElem.style.position = "absolute";
 	appendColor.mediaElem.style.top = "0.0em";
 	appendColor.mediaElem.style.left = "0.0em";
-	var screen = document.getElementsByClassName("CommentScreen")[0];
-	var layer = document.getElementsByClassName("hc-layer")[-1];
+	const screen = document.getElementsByClassName("CommentScreen")[0];
+	const layer = document.getElementsByClassName("hc-layer")[-1];
 	screen.insertBefore(appendColor.mediaElem, layer);
 
 	create_droparea();

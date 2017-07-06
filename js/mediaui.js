@@ -1,6 +1,6 @@
 (function() {
 	// if isSeek is true, dont adjust
-	var isSeek = false;
+	let isSeek = false;
 
 	function MenuBox() {
 		this.menuBoxElem = document.createElement("div");
@@ -20,15 +20,15 @@
 		this.menuBoxElem.setAttribute("class", "menubox");
 
 		this.insert = function() {
-			var screen = document.getElementsByClassName("CommentScreen")[0];
-			var layer = document.getElementsByClassName("hc-layer")[-1];
+			const screen = document.getElementsByClassName("CommentScreen")[0];
+			const layer = document.getElementsByClassName("hc-layer")[-1];
 			screen.insertBefore(this.menuBoxElem, layer);
 		}
 	}
 
 
 	function create_show_area() {
-		var area = document.createElement("div");
+		const area = document.createElement("div");
 		area.style.display = "block";
 		area.style.position = "absolute";
 		area.style.bottom = "0.0em";
@@ -39,7 +39,7 @@
 		area.className = "show_control_area";
 
 		function toggle_box() {
-			var state = menuBoxNode.style.display;
+			let state = menuBoxNode.style.display;
 			if (state == "table") {
 				menuBoxNode.style.display = "none";
 			}
@@ -49,8 +49,8 @@
 		}
 
 		area.onclick = toggle_box;
-		var screen = document.getElementsByClassName("CommentScreen")[0];
-		var layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = document.getElementsByClassName("CommentScreen")[0];
+		const layer = document.getElementsByClassName("hc-layer")[-1];
 		screen.insertBefore(area, layer);
 	}
 
@@ -100,7 +100,7 @@
 
 	function toggle_play_stop(event) {
 		return function(event) {
-			var media = document.getElementsByClassName("drop_playing")[0];
+			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				if (media.paused) {
 					media.play();
@@ -119,7 +119,7 @@
 	function mute_media(event) {
 		return function(event) {
 			"use strict";
-			var media = document.getElementsByClassName("drop_playing")[0];
+			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				if (media.muted) {
 					console.log("unmute media");
@@ -140,7 +140,7 @@
 	function clear_media() {
 		return function() {
 			"use strict";
-			var media = document.getElementsByClassName("drop_playing")[0];
+			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				console.log("rm media");
 				media.removeAttribute("src");
@@ -153,37 +153,37 @@
 	}
 
 
-	menu = new MenuBox();
+	const menu = new MenuBox();
 	menu.insert();
-	var menuBoxNode = document.getElementsByClassName("menubox")[0];
+	const menuBoxNode = document.getElementsByClassName("menubox")[0];
 	create_show_area();
 
-	var playBtn = new ControlBtn();
+	const playBtn = new ControlBtn();
 	playBtn.btnFrame.onclick = toggle_play_stop();
 	playBtn.set_text("||");
 	playBtn.append(menuBoxNode);
 
-	var timeBar = new MediaBar();
+	const timeBar = new MediaBar();
 	timeBar.append(menuBoxNode);
 
-	var muteBtn = new ControlBtn();
+	const muteBtn = new ControlBtn();
 	muteBtn.btnFrame.onclick = mute_media();
 	muteBtn.set_text("🔊");
 	muteBtn.append(menuBoxNode);
 
-	var clearBtn = new ControlBtn();
+	const clearBtn = new ControlBtn();
 	clearBtn.set_text("ｘ");
 	clearBtn.btnFrame.onclick = clear_media();
 	clearBtn.append(menuBoxNode);
 
-	var timeBarNode = document.getElementsByClassName("mediabar")[0];
+	const timeBarNode = document.getElementsByClassName("mediabar")[0];
 	timeBarNode.onchange = function(event) {
 		isSeek = true;
-		var media = document.getElementsByClassName("drop_playing")[0];
+		const media = document.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
-			var percent = parseFloat(event.target.value)/100;
-			var medialength = media.duration;
-			var seektime = medialength*percent;
+			let percent = parseFloat(event.target.value)/100;
+			let medialength = media.duration;
+			let seektime = medialength*percent;
 			media.currentTime = seektime;
 		}
 	}
@@ -194,10 +194,10 @@
 				isSeek = false;
 				return
 			}
-			var media = document.getElementsByClassName("drop_playing")[0];
+			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
-				var medialength = media.duration;
-				var current = media.currentTime;
+				let medialength = media.duration;
+				let current = media.currentTime;
 				timeBar.barElem.value = current/medialength*100;
 				isSeek = false;
 				

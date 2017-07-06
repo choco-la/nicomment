@@ -23,7 +23,7 @@
 
 
 	function create_show_area() {
-		var area = document.createElement("div");
+		const area = document.createElement("div");
 		area.style.display = "block";
 		area.style.position = "absolute";
 		area.style.top = "0.0em";
@@ -34,7 +34,7 @@
 		area.className = "show_imgmenu_area";
 
 		function toggle_box() {
-			var state = menuBoxNode.style.display;
+			const state = menuBoxNode.style.display;
 			if (state == "table") {
 				menuBoxNode.style.display = "none";
 			}
@@ -44,7 +44,7 @@
 		}
 
 		area.onclick = toggle_box;
-		var screen = document.getElementsByClassName("CommentScreen")[0];
+		const screen = document.getElementsByClassName("CommentScreen")[0];
 		screen.appendChild(area);
 	}
 
@@ -92,49 +92,11 @@
 	}
 
 
-	function toggle_play_stop(event) {
-		return function(event) {
-			var media = document.getElementsByClassName("drop_playing")[0];
-			if (media != undefined) {
-				if (media.paused) {
-					media.play();
-					event.target.innerText = "||";
-				}
-				else {
-					media.pause();
-					event.target.innerText = "▶";
-				}
-			}
-		}
-	}
-
-
-	// stop, delete media element if exists
-	function mute_media(event) {
-		return function(event) {
-			"use strict";
-			var media = document.getElementsByClassName("drop_playing")[0];
-			if (media != undefined) {
-				if (media.muted) {
-					console.log("unmute media");
-					media.muted = false;
-					event.target.innerText = "🔊";
-				}
-				else {
-					console.log("mute media");
-					media.muted = true;
-					event.target.innerText = "Ｍ";
-				}
-			}
-		}
-	}
-
-
 	// stop, delete media element if exists
 	function clear_media() {
 		return function() {
 			"use strict";
-			var media = document.getElementsByClassName("bg_color")[0];
+			const media = document.getElementsByClassName("bg_color")[0];
 			if (media != undefined) {
 				media.style.backgroundColor = "transparent";
 			}
@@ -143,7 +105,7 @@
 
 
 	function create_color_picker() {
-		var colorPicker = document.createElement("input");
+		const colorPicker = document.createElement("input");
 		colorPicker.type = "color";
 		colorPicker.style.display = "table-cell";
 		colorPicker.style.float = "none";
@@ -152,7 +114,7 @@
 		function change_bg_color(event) {
 			return function(event) {
 				console.log(event.target.value);
-				var bg = document.getElementsByClassName("bg_color")[0];
+				const bg = document.getElementsByClassName("bg_color")[0];
 				bg.style.backgroundColor = event.target.value;
 			}
 		}
@@ -162,22 +124,22 @@
 
 
 	function dom_insert(elem) {
-		var screen = document.getElementsByClassName("CommentScreen")[0];
-		var layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = document.getElementsByClassName("CommentScreen")[0];
+		const layer = document.getElementsByClassName("hc-layer")[-1];
 		screen.insertBefore(elem, layer);
 	}
 
 
-	menu = new MenuBox();
+	const menu = new MenuBox();
 	dom_insert(menu.menuBoxElem);
 	
-	var menuBoxNode = document.getElementsByClassName("imgmenubox")[0];
+	const menuBoxNode = document.getElementsByClassName("imgmenubox")[0];
 	create_show_area();
 
-	var transpBar = new MediaBar();
+	const transpBar = new MediaBar();
 	transpBar.append(menuBoxNode);
 
-	var colorAlphaBar = new MediaBar();
+	const colorAlphaBar = new MediaBar();
 	colorAlphaBar.barElem.style.width = "80%";
 	colorAlphaBar.barElem.className = "color_trans_bar";
 	colorAlphaBar.barElem.style.float = "left";
@@ -185,24 +147,24 @@
 
 	create_color_picker();
 
-	var clearBtn = new ControlBtn();
+	const clearBtn = new ControlBtn();
 	clearBtn.set_text("ｘ");
 	clearBtn.btnFrame.onclick = clear_media();
 	clearBtn.append(menuBoxNode);
 
-	var transpBarNode = document.getElementsByClassName("img_transparent_bar")[0];
+	const transpBarNode = document.getElementsByClassName("img_transparent_bar")[0];
 	transpBarNode.onchange = function(event) {
-		var media = document.getElementsByClassName("drop_media_box")[0];
+		const media = document.getElementsByClassName("drop_media_box")[0];
 		if (media != undefined) {
-			var percent = event.target.value;
+			let percent = event.target.value;
 			media.style.opacity = percent;
 		}
 	}
-	var alphaColorNode = document.getElementsByClassName("color_trans_bar")[0];
+	const alphaColorNode = document.getElementsByClassName("color_trans_bar")[0];
 	alphaColorNode.onchange = function(event) {
-		var media = document.getElementsByClassName("bg_color")[0];
+		const media = document.getElementsByClassName("bg_color")[0];
 		if (media != undefined) {
-			var percent = event.target.value;
+			let percent = event.target.value;
 			media.style.opacity = percent;
 		}
 	}
