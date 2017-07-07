@@ -1,14 +1,21 @@
 (function() {
 	"use strict";
 
-
 	// remove announce area
 	const remove_announce = () => {
-		let niconnect = document.getElementsByClassName("nico-connect-account")[0];
-		let ulAnnounce = document.getElementsByClassName("announcements")[0];
+		const niconnect = document.getElementsByClassName("nico-connect-account")[0];
+		const ulAnnounce = document.getElementsByClassName("announcements")[0];
 		
 		niconnect.parentNode.removeChild(niconnect);
 		ulAnnounce.parentNode.removeChild(ulAnnounce);
+	}
+
+
+	// not to upload when drop files
+	const remove_upload = () => {
+		const upload = document.getElementsByClassName("upload-area")[0];
+
+		upload.parentNode.removeChild(upload);
 	}
 
 
@@ -326,9 +333,17 @@
 	}
 
 
-	// try removing announce area
+/*	// try removing announce area
 	try {
 		remove_announce();
+	}
+	catch(err) {
+		console.log(err);
+	}*/
+
+
+	try {
+		remove_upload();
 	}
 	catch(err) {
 		console.log(err);
