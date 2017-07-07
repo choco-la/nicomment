@@ -16,6 +16,8 @@
 [ニコニコ形式](https://friends.nico/nicomment)のコメントエリアで動画を再生します。  
 ![img](demo/img1.png)  
  動画では[こんな感じ](https://friends.nico/@12/21759031)。  
+通常のWeb画面にコメント形式を表示することもできます。  
+![img](demo/img4.jpg)
 
 
 ## 特徴
@@ -28,6 +30,7 @@
 
 ## 使い方
 
+### コメント形式利用時
 ![img](demo/img2.png)  
 コメントスクロール部分がドラッグ・アンド・ドロップ可能になっています。  
 再生したい動画・音声ファイルをドロップすることで再生を開始できます。  
@@ -53,7 +56,7 @@
 
 * Firefox系  
 `$ zip -r addon.xpi icons/ js/ manifest.json`  
-* Chrome系
+* Chrome系  
 開発者モードからパッケージ化できます。  
 
 

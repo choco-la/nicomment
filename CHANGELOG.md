@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Ver 1.4
+commit bbeb3d1fcc82f1851925923491b7163eff2ac013  
+* 通常のWeb画面でのコメント形式の表示に対応  
+
+
 ## Ver 1.3
 commit a615b19e8193b69ddb420ee6e701906f31f0d134  
 * Gecko系でcontrols=trueの際、ニコるを外した際に再生/停止をしないよう独自の操作UIを実装  
