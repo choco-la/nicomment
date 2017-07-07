@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "withNicome",
 	"description": "Watch local video with nicomment",
-	"version": "1.3",
+	"version": "1.4",
 	"homepage_url": "https://github.com/choco-la/nicomment",
 	"icons": {
 		"48": "icons/icon48.png",
@@ -17,11 +17,16 @@
 		{
 			"matches": ["https://friends.nico/nicomment"],
 			"js": [
-				"js/movie.js",
-				"js/mediaui.js",
-				"js/backimgui.js"
+				"js/nicomment/movie.js",
+				"js/nicomment/mediaui.js",
+				"js/nicomment/backimgui.js"
+			]
+		},
+		{
+			"matches": ["https://friends.nico/web/getting-started"],
+			"js": [
+				"js/web/nicomment_iframe.js"
 			]
 		}
 	]
-
 }
