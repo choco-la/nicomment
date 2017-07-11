@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "withNicome",
 	"description": "Watch local video with nicomment",
-	"version": "1.4",
+	"version": "1.4.1",
 	"homepage_url": "https://github.com/choco-la/nicomment",
 	"icons": {
 		"48": "icons/icon48.png",
