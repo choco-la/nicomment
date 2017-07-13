@@ -102,14 +102,9 @@
 
 
 	const movie_js = () => {
+		const docRoot = document.getElementsByClassName("nicomment_inner_frame")[0].contentWindow.document;
 
-		const frameDocument = document.getElementsByClassName("nicomment_inner_frame")[0].contentWindow.document;
-
-		// to check canPlayType
-		const videoElement = frameDocument.createElement("video");
-		const audioElement = frameDocument.createElement("audio");
-
-		// /^video\/.*/ breaks syntax highlight
+		//	/^video\/.*/ breaks syntax highlight
 		const reVideoType = new RegExp("^video/.*");
 		const reAudioType = new RegExp("^audio/.*");
 		const reImageType = new RegExp("^image/.*");
@@ -150,7 +145,6 @@
 		function load_img(file) {
 			reader.onload = (function() {
 				return function() {
-		// appendMedia.mediaElem.style.opacity = "0.8";
 					const blobUrl = window.URL.createObjectURL(file);
 					const img = "url(" + blobUrl + ")";
 					boxNode.style.backgroundImage = img;
@@ -202,7 +196,7 @@
 
 		// stop, delete media element if exists
 		function halt_media() {
-			const media = frameDocument.getElementsByClassName("drop_playing")[0];
+			const media = docRoot.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				console.log("rm media");
 				media.removeAttribute("src");
@@ -215,7 +209,7 @@
 
 		// media handling constructor
 		function MediaBox() {
-			this.divElem = frameDocument.createElement("div");
+			this.divElem = docRoot.createElement("div");
 
 			this.divElem.style.position = "relative";
 			this.divElem.style.display = "block";
@@ -226,18 +220,19 @@
 
 			this.divElem.style.backgroundSize = "cover";
 			this.divElem.style.backgroundPosition = "center center";
+		}
 
-			this.insert = function() {
-				const screen = frameDocument.getElementsByClassName("CommentScreen")[0];
-				const layer = frameDocument.getElementsByClassName("hc-layer")[-1];
-				screen.insertBefore(this.divElem, layer);
-			}
+		MediaBox.prototype.insert = function() {
+			const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+			const layer = docRoot.getElementsByClassName("hc-layer")[-1];
+			const insertnode = screen.insertBefore(this.divElem, layer);
+			return insertnode;
 		}
 
 
 		function MediaToAppend(type) {
 			this.type = type;
-			this.mediaElem = frameDocument.createElement(this.type);
+			this.mediaElem = docRoot.createElement(this.type);
 
 			this.mediaElem.style.position = "relative";
 			this.mediaElem.style.display = "none";
@@ -245,55 +240,55 @@
 			this.mediaElem.style.width = "100%";
 			this.mediaElem.style.zIndex = "-1";
 
-			//this.mediaElem.controls = "false";
 			this.mediaElem.loop = "true";
+		}
 
-			this.set_src = function(file) {
-				this.src = file;
-				this.blobUrl = window.URL.createObjectURL(this.src);
-				this.mediaElem.setAttribute("src", this.blobUrl);
-			}
+		MediaToAppend.prototype.set_src = function(file) {
+			this.src = file;
+			this.blobUrl = window.URL.createObjectURL(this.src);
+			this.mediaElem.setAttribute("src", this.blobUrl);
+		}
 
-			this.set_zindex = function(num) {
-				this.mediaElem.style.zIndex = num;
-			}
+		MediaToAppend.prototype.set_zindex = function(num) {
+			this.mediaElem.style.zIndex = num;
+		}
 
-			this.show = function() {
-				this.mediaElem.style.display = "block";
-			}
+		MediaToAppend.prototype.show = function() {
+			this.mediaElem.style.display = "block";
+		}
 
-			this.hide = function() {
-				this.mediaElem.style.display = "none";
-			}
+		MediaToAppend.prototype.hide = function() {
+			this.mediaElem.style.display = "none";
+		}
 
-			this.set_class = function(str) {
-				this.mediaElem.className = str;
-			}
+		MediaToAppend.prototype.set_class = function(str) {
+			this.mediaElem.className = str;
+		}
 
-			this.set_playing = function() {
-				this.mediaElem.className = "drop_" + this.type + " " + "drop_playing";
-			}
+		MediaToAppend.prototype.set_playing = function() {
+			this.mediaElem.className = "drop_" + this.type + " " + "drop_playing";
+		}
 
-			this.unset_playing = function() {
-				this.mediaElem.className = "drop_" + this.type;
-			}
+		MediaToAppend.prototype.unset_playing = function() {
+			this.mediaElem.className = "drop_" + this.type;
+		}
 
-			this.append = function(node) {
-				node.appendChild(this.mediaElem);
-			}
+		MediaToAppend.prototype.append = function(node) {
+			const appendnode = node.appendChild(this.mediaElem);
+			return appendnode;
+		}
 
-			this.load = function() {
-				this.mediaElem.load();
-			}
+		MediaToAppend.prototype.load = function() {
+			this.mediaElem.load();
+		}
 
-			this.play = function() {
-				this.mediaElem.play();
-			}
+		MediaToAppend.prototype.play = function() {
+			this.mediaElem.play();
 		}
 
 
 		function create_droparea() {
-			const dropArea = frameDocument.getElementsByClassName("CommentPanel is-active")[0];
+			const dropArea = docRoot.getElementsByClassName("CommentPanel is-active")[0];
 			dropArea.setAttribute("draggable", "true");
 			dropArea.addEventListener("dragover", handle_dragover, false);
 			dropArea.addEventListener("drop", halt_media, false);
@@ -302,16 +297,15 @@
 
 
 		const appendBox = new MediaBox();
-		appendBox.insert();
-		const boxNode = frameDocument.getElementsByClassName("drop_media_box")[0];
+		const boxNode = appendBox.insert();
 
 		const appendVideo = new MediaToAppend("video");
 		appendVideo.set_class("drop_video");
-		appendVideo.append(boxNode);
+		const videoElement = appendVideo.append(boxNode);
 
 		const appendAudio = new MediaToAppend("audio");
 		appendAudio.set_class("drop_audio");
-		appendAudio.append(boxNode);
+		const audioElement = appendAudio.append(boxNode);
 
 		const appendColor = new MediaToAppend("div");
 		appendColor.set_class("bg_color");
@@ -321,8 +315,8 @@
 		appendColor.mediaElem.style.position = "absolute";
 		appendColor.mediaElem.style.top = "0.0em";
 		appendColor.mediaElem.style.left = "0.0em";
-		const screen = frameDocument.getElementsByClassName("CommentScreen")[0];
-		const layer = frameDocument.getElementsByClassName("hc-layer")[-1];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+		const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 		screen.insertBefore(appendColor.mediaElem, layer);
 
 		create_droparea();
