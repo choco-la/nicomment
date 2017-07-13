@@ -1,11 +1,12 @@
 (function() {
 	"use strict";
+	const docRoot = document;
 
 	// if isSeek is true, dont adjust
 	let isSeek = false;
 
 	function MenuBox() {
-		this.menuBoxElem = document.createElement("div");
+		this.menuBoxElem = docRoot.createElement("div");
 		this.menuBoxElem.style.position = "absolute";
 		this.menuBoxElem.style.bottom = "0.2em";
 		this.menuBoxElem.style.height = "0.8em";
@@ -23,15 +24,15 @@
 	}
 
 	MenuBox.prototype.insert = function() {
-		const screen = document.getElementsByClassName("CommentScreen")[0];
-		const layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+		const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 		const newnode = screen.insertBefore(this.menuBoxElem, layer);
 		return newnode;
 	}
 
 
 	function create_show_area() {
-		const area = document.createElement("div");
+		const area = docRoot.createElement("div");
 		area.style.display = "block";
 		area.style.position = "absolute";
 		area.style.bottom = "0.0em";
@@ -52,15 +53,15 @@
 		}
 
 		area.onclick = toggle_box;
-		const screen = document.getElementsByClassName("CommentScreen")[0];
-		const layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+		const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 		const newnode = screen.insertBefore(area, layer);
 		return newnode;
 	}
 
 
 	function MediaBar() {
-		this.barElem = document.createElement("input");
+		this.barElem = docRoot.createElement("input");
 		this.barElem.style.display = "table-cell";
 		this.barElem.type = "range";
 		this.barElem.min = "0";
@@ -81,7 +82,7 @@
 
 
 	function ControlBtn() {
-		this.btnFrame = document.createElement("div");
+		this.btnFrame = docRoot.createElement("div");
 		this.btnFrame.style.display = "table-cell";
 		this.btnFrame.style.width = "6%";
 		this.btnFrame.style.paddingLeft = "1%";
@@ -105,7 +106,7 @@
 
 	function toggle_play_stop(event) {
 		return function(event) {
-			const media = document.getElementsByClassName("drop_playing")[0];
+			const media = docRoot.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				if (media.paused) {
 					media.play();
@@ -123,7 +124,7 @@
 	// stop, delete media element if exists
 	function mute_media(event) {
 		return function(event) {
-			const media = document.getElementsByClassName("drop_playing")[0];
+			const media = docRoot.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				if (media.muted) {
 					console.log("unmute media");
@@ -143,7 +144,7 @@
 	// stop, delete media element if exists
 	function clear_media() {
 		return function() {
-			const media = document.getElementsByClassName("drop_playing")[0];
+			const media = docRoot.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				console.log("rm media");
 				media.removeAttribute("src");
@@ -169,7 +170,7 @@
 	const timeBarNode = timeBar.append(menuBoxNode);
 	timeBarNode.onchange = function(event) {
 		isSeek = true;
-		const media = document.getElementsByClassName("drop_playing")[0];
+		const media = docRoot.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
 			const percent = parseFloat(event.target.value) / 100;
 			const medialength = media.duration;
@@ -195,7 +196,7 @@
 			isSeek = false;
 			return;
 		}
-		const media = document.getElementsByClassName("drop_playing")[0];
+		const media = docRoot.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
 			const medialength = media.duration;
 			const current = media.currentTime;

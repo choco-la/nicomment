@@ -1,5 +1,6 @@
 (function() {
 	"use strict";
+	const docRoot = document;
 
 	//	/^video\/.*/ breaks syntax highlight
 	const reVideoType = new RegExp("^video/.*");
@@ -93,7 +94,7 @@
 
 	// stop, delete media element if exists
 	function halt_media() {
-		const media = document.getElementsByClassName("drop_playing")[0];
+		const media = docRoot.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
 			console.log("rm media");
 			media.removeAttribute("src");
@@ -106,7 +107,7 @@
 
 	// media handling constructor
 	function MediaBox() {
-		this.divElem = document.createElement("div");
+		this.divElem = docRoot.createElement("div");
 
 		this.divElem.style.position = "relative";
 		this.divElem.style.display = "block";
@@ -120,8 +121,8 @@
 	}
 
 	MediaBox.prototype.insert = function() {
-		const screen = document.getElementsByClassName("CommentScreen")[0];
-		const layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+		const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 		const insertnode = screen.insertBefore(this.divElem, layer);
 		return insertnode;
 	}
@@ -129,7 +130,7 @@
 
 	function MediaToAppend(type) {
 		this.type = type;
-		this.mediaElem = document.createElement(this.type);
+		this.mediaElem = docRoot.createElement(this.type);
 
 		this.mediaElem.style.position = "relative";
 		this.mediaElem.style.display = "none";
@@ -185,7 +186,7 @@
 
 
 	function create_droparea() {
-		const dropArea = document.getElementsByClassName("CommentPanel is-active")[0];
+		const dropArea = docRoot.getElementsByClassName("CommentPanel is-active")[0];
 		dropArea.setAttribute("draggable", "true");
 		dropArea.addEventListener("dragover", handle_dragover, false);
 		dropArea.addEventListener("drop", halt_media, false);
@@ -212,8 +213,8 @@
 	appendColor.mediaElem.style.position = "absolute";
 	appendColor.mediaElem.style.top = "0.0em";
 	appendColor.mediaElem.style.left = "0.0em";
-	const screen = document.getElementsByClassName("CommentScreen")[0];
-	const layer = document.getElementsByClassName("hc-layer")[-1];
+	const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+	const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 	screen.insertBefore(appendColor.mediaElem, layer);
 
 	create_droparea();

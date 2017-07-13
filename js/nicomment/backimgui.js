@@ -1,8 +1,9 @@
 (function() {
 	"use strict";
+	const docRoot = document;
 
 	function MenuBox() {
-		this.menuBoxElem = document.createElement("div");
+		this.menuBoxElem = docRoot.createElement("div");
 		this.menuBoxElem.style.position = "absolute";
 		this.menuBoxElem.style.top = "0.2em";
 		this.menuBoxElem.style.height = "0.8em";
@@ -26,7 +27,7 @@
 
 
 	function create_show_area() {
-		const area = document.createElement("div");
+		const area = docRoot.createElement("div");
 		area.style.display = "block";
 		area.style.position = "absolute";
 		area.style.top = "0.0em";
@@ -47,14 +48,14 @@
 		}
 
 		area.onclick = toggle_box;
-		const screen = document.getElementsByClassName("CommentScreen")[0];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
 		const newnode = screen.appendChild(area);
 		return newnode;
 	}
 
 
 	function MediaBar() {
-		this.barElem = document.createElement("input");
+		this.barElem = docRoot.createElement("input");
 		this.barElem.style.display = "table-cell";
 		this.barElem.type = "range";
 		this.barElem.min = "0.0";
@@ -75,7 +76,7 @@
 
 
 	function ControlBtn() {
-		this.btnFrame = document.createElement("div");
+		this.btnFrame = docRoot.createElement("div");
 		this.btnFrame.style.display = "table-cell";
 		this.btnFrame.style.width = "6%";
 		this.btnFrame.style.paddingLeft = "1%";
@@ -100,7 +101,7 @@
 	// stop, delete media element if exists
 	function clear_media() {
 		return function() {
-			const media = document.getElementsByClassName("bg_color")[0];
+			const media = docRoot.getElementsByClassName("bg_color")[0];
 			if (media != undefined) {
 				media.style.backgroundColor = "transparent";
 			}
@@ -109,7 +110,7 @@
 
 
 	function create_color_picker() {
-		const colorPicker = document.createElement("input");
+		const colorPicker = docRoot.createElement("input");
 		colorPicker.type = "color";
 		colorPicker.style.display = "table-cell";
 		colorPicker.style.float = "none";
@@ -119,7 +120,7 @@
 		function change_bg_color(event) {
 			return function(event) {
 				console.log(event.target.value);
-				const bg = document.getElementsByClassName("bg_color")[0];
+				const bg = docRoot.getElementsByClassName("bg_color")[0];
 				bg.style.backgroundColor = event.target.value;
 			}
 		}
@@ -131,8 +132,8 @@
 
 
 	function dom_insert(elem) {
-		const screen = document.getElementsByClassName("CommentScreen")[0];
-		const layer = document.getElementsByClassName("hc-layer")[-1];
+		const screen = docRoot.getElementsByClassName("CommentScreen")[0];
+		const layer = docRoot.getElementsByClassName("hc-layer")[-1];
 		const newnode = screen.insertBefore(elem, layer);
 		return newnode;
 	}
@@ -141,13 +142,13 @@
 	const menu = new MenuBox();
 	dom_insert(menu.menuBoxElem);
 	
-	const menuBoxNode = document.getElementsByClassName("imgmenubox")[0];
+	const menuBoxNode = docRoot.getElementsByClassName("imgmenubox")[0];
 	create_show_area();
 
 	const transpBar = new MediaBar();
 	const transpBarNode = transpBar.append(menuBoxNode);
 	transpBarNode.onchange = function(event) {
-		const media = document.getElementsByClassName("drop_media_box")[0];
+		const media = docRoot.getElementsByClassName("drop_media_box")[0];
 		if (media != undefined) {
 			const percent = event.target.value;
 			media.style.opacity = percent;
@@ -161,7 +162,7 @@
 	colorAlphaBar.barElem.style.float = "left";
 	const alphaColorNode = menuBoxNode.appendChild(colorAlphaBar.barElem);
 	alphaColorNode.onchange = function(event) {
-		const media = document.getElementsByClassName("bg_color")[0];
+		const media = docRoot.getElementsByClassName("bg_color")[0];
 		if (media != undefined) {
 			const percent = event.target.value;
 			media.style.opacity = percent;
