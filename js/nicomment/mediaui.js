@@ -1,4 +1,6 @@
 (function() {
+	"use strict";
+
 	// if isSeek is true, dont adjust
 	let isSeek = false;
 
@@ -18,12 +20,13 @@
 		this.menuBoxElem.style.borderBottom = "0.0em";
 
 		this.menuBoxElem.setAttribute("class", "menubox");
+	}
 
-		this.insert = function() {
-			const screen = document.getElementsByClassName("CommentScreen")[0];
-			const layer = document.getElementsByClassName("hc-layer")[-1];
-			screen.insertBefore(this.menuBoxElem, layer);
-		}
+	MenuBox.prototype.insert = function() {
+		const screen = document.getElementsByClassName("CommentScreen")[0];
+		const layer = document.getElementsByClassName("hc-layer")[-1];
+		const newnode = screen.insertBefore(this.menuBoxElem, layer);
+		return newnode;
 	}
 
 
@@ -39,7 +42,7 @@
 		area.className = "show_control_area";
 
 		function toggle_box() {
-			let state = menuBoxNode.style.display;
+			const state = menuBoxNode.style.display;
 			if (state == "table") {
 				menuBoxNode.style.display = "none";
 			}
@@ -51,7 +54,8 @@
 		area.onclick = toggle_box;
 		const screen = document.getElementsByClassName("CommentScreen")[0];
 		const layer = document.getElementsByClassName("hc-layer")[-1];
-		screen.insertBefore(area, layer);
+		const newnode = screen.insertBefore(area, layer);
+		return newnode;
 	}
 
 
@@ -68,33 +72,34 @@
 		this.barElem.style.margin = "auto";
 		this.barElem.style.height = "100%";
 		this.barElem.style.width = "100%";
+	}
 
-		this.append = function(node) {
-			node.appendChild(timeBar.barElem);
-		}
+	MediaBar.prototype.append = function(node) {
+		const newnode = node.appendChild(timeBar.barElem);
+		return newnode;
 	}
 
 
 	function ControlBtn() {
-		"use strict";
 		this.btnFrame = document.createElement("div");
 		this.btnFrame.style.display = "table-cell";
 		this.btnFrame.style.width = "6%";
 		this.btnFrame.style.paddingLeft = "1%";
 		this.btnFrame.style.verticalAlign = "middle";
 		this.btnFrame.style.fontSize = "0.6em";
+	}
 
-		this.set_text = function(str) {
-			this.btnFrame.innerText = str;
-		}
+	ControlBtn.prototype.set_text = function(str) {
+		this.btnFrame.innerText = str;
+	}
 
-		this.set_class = function(clsname) {
-			this.btnFrame.className = clsname;
-		}
+	ControlBtn.prototype.set_class = function(clsname) {
+		this.btnFrame.className = clsname;
+	}
 
-		this.append = function(node) {
-			node.appendChild(this.btnFrame);
-		}
+	ControlBtn.prototype.append = function(node) {
+		const newnode = node.appendChild(this.btnFrame);
+		return newnode;
 	}
 
 
@@ -118,7 +123,6 @@
 	// stop, delete media element if exists
 	function mute_media(event) {
 		return function(event) {
-			"use strict";
 			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				if (media.muted) {
@@ -139,7 +143,6 @@
 	// stop, delete media element if exists
 	function clear_media() {
 		return function() {
-			"use strict";
 			const media = document.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				console.log("rm media");
@@ -154,8 +157,7 @@
 
 
 	const menu = new MenuBox();
-	menu.insert();
-	const menuBoxNode = document.getElementsByClassName("menubox")[0];
+	const menuBoxNode = menu.insert();
 	create_show_area();
 
 	const playBtn = new ControlBtn();
@@ -164,7 +166,17 @@
 	playBtn.append(menuBoxNode);
 
 	const timeBar = new MediaBar();
-	timeBar.append(menuBoxNode);
+	const timeBarNode = timeBar.append(menuBoxNode);
+	timeBarNode.onchange = function(event) {
+		isSeek = true;
+		const media = document.getElementsByClassName("drop_playing")[0];
+		if (media != undefined) {
+			const percent = parseFloat(event.target.value) / 100;
+			const medialength = media.duration;
+			const seektime = medialength * percent;
+			media.currentTime = seektime;
+		}
+	}
 
 	const muteBtn = new ControlBtn();
 	muteBtn.btnFrame.onclick = mute_media();
@@ -176,35 +188,24 @@
 	clearBtn.btnFrame.onclick = clear_media();
 	clearBtn.append(menuBoxNode);
 
-	const timeBarNode = document.getElementsByClassName("mediabar")[0];
-	timeBarNode.onchange = function(event) {
-		isSeek = true;
+
+	function adjustTime() {
+		// avoid overwrite seeking value
+		if (isSeek == true) {
+			isSeek = false;
+			return;
+		}
 		const media = document.getElementsByClassName("drop_playing")[0];
 		if (media != undefined) {
-			let percent = parseFloat(event.target.value)/100;
-			let medialength = media.duration;
-			let seektime = medialength*percent;
-			media.currentTime = seektime;
+			const medialength = media.duration;
+			const current = media.currentTime;
+			timeBar.barElem.value = current / medialength * 100;
+			isSeek = false;
 		}
 	}
 
-	adjustTime = function() {
-			// avoid overwrite seeking value
-			if (isSeek == true) {
-				isSeek = false;
-				return
-			}
-			const media = document.getElementsByClassName("drop_playing")[0];
-			if (media != undefined) {
-				let medialength = media.duration;
-				let current = media.currentTime;
-				timeBar.barElem.value = current/medialength*100;
-				isSeek = false;
-				
-			}
-		}
-
 	// adjust seekbar position to media currentTime
+	// media.timeupdate is too severe to seek
 	setInterval(adjustTime, 1000);
 	menuBoxNode.style.display = "none";
-})()
+})();

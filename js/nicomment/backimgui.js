@@ -1,4 +1,6 @@
 (function() {
+	"use strict";
+
 	function MenuBox() {
 		this.menuBoxElem = document.createElement("div");
 		this.menuBoxElem.style.position = "absolute";
@@ -15,10 +17,11 @@
 		this.menuBoxElem.style.borderBottom = "0.0em";
 
 		this.menuBoxElem.setAttribute("class", "imgmenubox");
+	}
 
-		this.append = function(node) {
-			node.appendChild(this.menuBoxElem);
-		}
+	MenuBox.prototype.append = function(node) {
+		const newnode = node.appendChild(this.menuBoxElem);
+		return newnode;
 	}
 
 
@@ -45,7 +48,8 @@
 
 		area.onclick = toggle_box;
 		const screen = document.getElementsByClassName("CommentScreen")[0];
-		screen.appendChild(area);
+		const newnode = screen.appendChild(area);
+		return newnode;
 	}
 
 
@@ -62,40 +66,40 @@
 		this.barElem.style.margin = "auto";
 		this.barElem.style.height = "100%";
 		this.barElem.style.width = "100%";
+	}
 
-		this.append = function(node) {
-			node.appendChild(transpBar.barElem);
-		}
+	MediaBar.prototype.append = function(node) {
+		const newnode = node.appendChild(transpBar.barElem);
+		return newnode;
 	}
 
 
 	function ControlBtn() {
-		"use strict";
 		this.btnFrame = document.createElement("div");
 		this.btnFrame.style.display = "table-cell";
 		this.btnFrame.style.width = "6%";
 		this.btnFrame.style.paddingLeft = "1%";
 		this.btnFrame.style.verticalAlign = "middle";
 		this.btnFrame.style.fontSize = "0.6em";
+	}
 
-		this.set_text = function(str) {
-			this.btnFrame.innerText = str;
-		}
+	ControlBtn.prototype.set_text = function(str) {
+		this.btnFrame.innerText = str;
+	}
 
-		this.set_class = function(clsname) {
-			this.btnFrame.className = clsname;
-		}
+	ControlBtn.prototype.set_class = function(clsname) {
+		this.btnFrame.className = clsname;
+	}
 
-		this.append = function(node) {
-			node.appendChild(this.btnFrame);
-		}
+	ControlBtn.prototype.append = function(node) {
+		const newnode = node.appendChild(this.btnFrame);
+		return newnode;
 	}
 
 
 	// stop, delete media element if exists
 	function clear_media() {
 		return function() {
-			"use strict";
 			const media = document.getElementsByClassName("bg_color")[0];
 			if (media != undefined) {
 				media.style.backgroundColor = "transparent";
@@ -111,6 +115,7 @@
 		colorPicker.style.float = "none";
 		colorPicker.style.marginLeft = "4%";
 		colorPicker.style.width = "8%";
+
 		function change_bg_color(event) {
 			return function(event) {
 				console.log(event.target.value);
@@ -118,15 +123,18 @@
 				bg.style.backgroundColor = event.target.value;
 			}
 		}
+
 		colorPicker.onchange = change_bg_color();
-		menuBoxNode.appendChild(colorPicker);
+		const newnode = menuBoxNode.appendChild(colorPicker);
+		return newnode;
 	}
 
 
 	function dom_insert(elem) {
 		const screen = document.getElementsByClassName("CommentScreen")[0];
 		const layer = document.getElementsByClassName("hc-layer")[-1];
-		screen.insertBefore(elem, layer);
+		const newnode = screen.insertBefore(elem, layer);
+		return newnode;
 	}
 
 
@@ -137,13 +145,28 @@
 	create_show_area();
 
 	const transpBar = new MediaBar();
-	transpBar.append(menuBoxNode);
+	const transpBarNode = transpBar.append(menuBoxNode);
+	transpBarNode.onchange = function(event) {
+		const media = document.getElementsByClassName("drop_media_box")[0];
+		if (media != undefined) {
+			const percent = event.target.value;
+			media.style.opacity = percent;
+		}
+	}
+
 
 	const colorAlphaBar = new MediaBar();
 	colorAlphaBar.barElem.style.width = "80%";
 	colorAlphaBar.barElem.className = "color_trans_bar";
 	colorAlphaBar.barElem.style.float = "left";
-	menuBoxNode.appendChild(colorAlphaBar.barElem);
+	const alphaColorNode = menuBoxNode.appendChild(colorAlphaBar.barElem);
+	alphaColorNode.onchange = function(event) {
+		const media = document.getElementsByClassName("bg_color")[0];
+		if (media != undefined) {
+			const percent = event.target.value;
+			media.style.opacity = percent;
+		}
+	}
 
 	create_color_picker();
 
@@ -152,21 +175,5 @@
 	clearBtn.btnFrame.onclick = clear_media();
 	clearBtn.append(menuBoxNode);
 
-	const transpBarNode = document.getElementsByClassName("img_transparent_bar")[0];
-	transpBarNode.onchange = function(event) {
-		const media = document.getElementsByClassName("drop_media_box")[0];
-		if (media != undefined) {
-			let percent = event.target.value;
-			media.style.opacity = percent;
-		}
-	}
-	const alphaColorNode = document.getElementsByClassName("color_trans_bar")[0];
-	alphaColorNode.onchange = function(event) {
-		const media = document.getElementsByClassName("bg_color")[0];
-		if (media != undefined) {
-			let percent = event.target.value;
-			media.style.opacity = percent;
-		}
-	}
 	menuBoxNode.style.display = "none";
-})()
+})();
