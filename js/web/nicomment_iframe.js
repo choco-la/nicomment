@@ -33,7 +33,8 @@
 		box.className = classname;
 
 		const drawer = document.getElementsByClassName("drawer__inner")[0];
-		drawer.appendChild(box);
+		const newnode = drawer.appendChild(box);
+		return newnode;
 	}
 
 
@@ -50,8 +51,8 @@
 		frame.className = "nicomment_inner_frame";
 
 		const frameNode = node.appendChild(frame);
-		// document.getElementsByClassName("nicomment_inner_frame")[0].onload = movie_js;
 		frameNode.onload = movie_js;
+		return frameNode;
 	}
 
 
@@ -70,13 +71,17 @@
 		this.elem.style.borderRadius = "0.4em";
 		this.elem.innerText = text;
 
-		this.elem.onmouseover = (event) => {event.target.style.opacity = "0.8"};
-
-		this.elem.onmouseout = (event) => {event.target.style.opacity = "1.0"};
-
-		this.append = function(node) {
-			return node.appendChild(this.elem);
+		this.elem.onmouseover = (event) => {
+			event.target.style.opacity = "0.8";
 		}
+
+		this.elem.onmouseout = (event) => {
+			event.target.style.opacity = "1.0";
+		}
+	}
+
+	ControlButton.prototype.append = function(node) {
+		return node.appendChild(this.elem);
 	}
 
 
@@ -112,7 +117,6 @@
 		const reader = new FileReader();
 
 		function load_video(file) {
-			"use strict";
 			reader.onload = (function() {
 				return function() {
 					appendVideo.set_src(file);
@@ -129,7 +133,6 @@
 
 
 		function load_audio(file) {
-			"use strict";
 			reader.onload = (function() {
 				return function() {
 					appendAudio.set_src(file);
@@ -145,7 +148,6 @@
 
 		// image
 		function load_img(file) {
-			"use strict";
 			reader.onload = (function() {
 				return function() {
 		// appendMedia.mediaElem.style.opacity = "0.8";
@@ -160,7 +162,6 @@
 
 
 		function handle_dragover(event) {
-			"use strict";
 			event.stopPropagation();
 			event.preventDefault();
 			event.dataTransfer.dropEffect = "copy";
@@ -169,7 +170,6 @@
 
 
 		function handle_drop(event) {
-			"use strict";
 			event.stopPropagation();
 			event.preventDefault();
 
@@ -202,7 +202,6 @@
 
 		// stop, delete media element if exists
 		function halt_media() {
-			"use strict";
 			const media = frameDocument.getElementsByClassName("drop_playing")[0];
 			if (media != undefined) {
 				console.log("rm media");
@@ -216,7 +215,6 @@
 
 		// media handling constructor
 		function MediaBox() {
-			"use strict";
 			this.divElem = frameDocument.createElement("div");
 
 			this.divElem.style.position = "relative";
@@ -238,7 +236,6 @@
 
 
 		function MediaToAppend(type) {
-			"use strict";
 			this.type = type;
 			this.mediaElem = frameDocument.createElement(this.type);
 
@@ -296,7 +293,6 @@
 
 
 		function create_droparea() {
-			"use strict";
 			const dropArea = frameDocument.getElementsByClassName("CommentPanel is-active")[0];
 			dropArea.setAttribute("draggable", "true");
 			dropArea.addEventListener("dragover", handle_dragover, false);
@@ -350,18 +346,17 @@
 	}
 
 	// create control panel to append buttons
-	create_btn_box("frame_control_panel", "#EBEBEB");
-	const frame_control_panel = document.getElementsByClassName("frame_control_panel")[0];
+	const frame_control_panel = create_btn_box("frame_control_panel", "#EBEBEB");
 
 	// append delete-iframe button, regist event listener
 	const delete_iframe_btn = new ControlButton("nicomment形式を削除", "delete_iframe_btn");
 	const deleteIframeBtnNode = delete_iframe_btn.append(frame_control_panel);
-	deleteIframeBtnNode.addEventListener("click",(event) => {
-			const delNode = document.getElementsByClassName("nicomment_inner_frame")[0];
-			if (delNode != undefined) {
-				delNode.parentNode.removeChild(delNode);
-			}
-		} ,false)
+	deleteIframeBtnNode.addEventListener("click", (event) => {
+		const delNode = document.getElementsByClassName("nicomment_inner_frame")[0];
+		if (delNode != undefined) {
+			delNode.parentNode.removeChild(delNode);
+		}
+	}, false)
 
 	// append insert-iframe button, regist event listener
 	const insert_iframe_btn = new ControlButton("nicomment形式を表示", "insert_iframe_btn");
@@ -376,9 +371,9 @@
 	// append toggle-columns-display button, regist event listener
 	const toggle_columns_btn = new ControlButton("カラムの表示切替", "toggle_columns_btn");
 	const toggleColumnsBtnNode = toggle_columns_btn.append(frame_control_panel);
-	toggleColumnsBtnNode.addEventListener("click", toggle_columns_display ,false)
+	toggleColumnsBtnNode.addEventListener("click", toggle_columns_display, false)
 
 	// append nicomment iframe to column-area at first
 	const nicomment_outer_frame = document.getElementsByClassName("columns-area")[0];
 	// insert_nicomment_iframe(nicomment_outer_frame);
-})()
+})();
