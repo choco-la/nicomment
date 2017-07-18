@@ -19,7 +19,8 @@
 			"js": [
 				"js/nicomment/movie.js",
 				"js/nicomment/mediaui.js",
-				"js/nicomment/backimgui.js"
+				"js/nicomment/backimgui.js",
+				"js/nicomment/keyshortcut.js"
 			]
 		},
 		{

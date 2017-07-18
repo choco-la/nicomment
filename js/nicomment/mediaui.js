@@ -162,6 +162,7 @@
 	create_show_area();
 
 	const playBtn = new ControlBtn();
+	playBtn.set_class("toggle_play_stop");
 	playBtn.btnFrame.onclick = toggle_play_stop();
 	playBtn.set_text("||");
 	playBtn.append(menuBoxNode);
