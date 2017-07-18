@@ -1,0 +1,23 @@
+{
+	"addons": {
+		"withnicome@example.com": {
+			"updates": [
+				{
+					"version": "1.3",
+					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.3/withnicome-1.3-an.fx.xpi",
+					"update_hash": "sha256:052350b6704c0453e7f4fbed269056cd1d514d2a2246a2527cc5548c9799b79c"
+				},
+				{
+					"version": "1.4",
+					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4/withnicome-1.4-an.fx.xpi",
+					"update_hash": "sha256:b5d06c61207d889bc83fbc2302bd3936965859583970b60c898046b9eab25b52"
+				},
+				{
+					"version": "1.4.1",
+					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.1/withnicome-1.4.1-an.fx.xpi",
+					"update_hash": "sha256:43d93939ef137394ab0f2764c9799aa02dc3ea396ca7d8ccc6662109b551ce9e"
+				}
+			]
+		}
+	}
+}
