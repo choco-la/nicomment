@@ -1,5 +1,11 @@
 # ChangeLog
 
+## Ver 1.4.2
+commit [282404736b9d46ca0af0b4115015599b996bf8aa](https://github.com/choco-la/nicomment/commit/282404736b9d46ca0af0b4115015599b996bf8aa)  
+* スペースキーでの再生/停止をサポート  
+* Firefoxでのアップデートのサポート  
+
+
 ## Ver 1.4.1
 commit [91904c783e17ff8d1d17ee3c48664d46d0d65c6b](https://github.com/choco-la/nicomment/commit/91904c783e17ff8d1d17ee3c48664d46d0d65c6b)  
 * アイコンの変更  

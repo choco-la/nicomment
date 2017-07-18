@@ -16,6 +16,11 @@
 					"version": "1.4.1",
 					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.1/withnicome-1.4.1-an.fx.xpi",
 					"update_hash": "sha256:43d93939ef137394ab0f2764c9799aa02dc3ea396ca7d8ccc6662109b551ce9e"
+				},
+				{
+					"version": "1.4.2",
+					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.2/withnicome-1.4.2-an.fx.xpi",
+					"update_hash": "sha256:5699636e94972df01a36152af3e870e48ef700532c7d11bd091f95fb54e068f5"
 				}
 			]
 		}
