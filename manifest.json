@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "withNicome",
 	"description": "Watch local video with nicomment",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"homepage_url": "https://github.com/choco-la/nicomment",
 	"icons": {
 		"48": "icons/icon48.png",
@@ -10,7 +10,8 @@
 	},
 	"applications": {
 		 "gecko": {
-		 "id": "withnicome@example.com"
+		 "id": "withnicome@example.com",
+		 "update_url": "https://choco-la.github.io/nicomment/update.json"
 		 }
 },
 	"content_scripts": [
