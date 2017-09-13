@@ -1,34 +1,35 @@
 {
-	"manifest_version": 2,
-	"name": "withNicome",
-	"description": "Watch local video with nicomment",
-	"version": "1.4.2",
-	"homepage_url": "https://github.com/choco-la/nicomment",
-	"icons": {
-		"48": "icons/icon48.png",
-		"96": "icons/icon96.png"
-	},
-	"applications": {
-		 "gecko": {
-		 "id": "withnicome@example.com",
-		 "update_url": "https://choco-la.github.io/nicomment/update.json"
-		 }
+    "manifest_version": 2,
+    "name": "withNicome",
+    "description": "Watch local video with nicomment",
+    "version": "1.4.3",
+    "homepage_url": "https://github.com/choco-la/nicomment",
+    "icons": {
+        "48": "icons/icon48.png",
+        "96": "icons/icon96.png",
+        "128": "icons/icon128.png"
+    },
+    "applications": {
+         "gecko": {
+            "id": "withnicome@example.com",
+            "update_url": "https://choco-la.github.io/nicomment/update.json"
+         }
 },
-	"content_scripts": [
-		{
-			"matches": ["https://friends.nico/nicomment"],
-			"js": [
-				"js/nicomment/movie.js",
-				"js/nicomment/mediaui.js",
-				"js/nicomment/backimgui.js",
-				"js/nicomment/keyshortcut.js"
-			]
-		},
-		{
-			"matches": ["https://friends.nico/web/getting-started"],
-			"js": [
-				"js/web/nicomment_iframe.js"
-			]
-		}
-	]
+    "content_scripts": [
+        {
+            "matches": ["https://friends.nico/nicomment"],
+            "js": [
+                "js/nicomment/movie.js",
+                "js/nicomment/mediaui.js",
+                "js/nicomment/backimgui.js",
+                "js/nicomment/keyshortcut.js"
+            ]
+        },
+        {
+            "matches": ["https://friends.nico/web/*"],
+            "js": [
+                "js/web/nicomment_iframe.js"
+            ]
+        }
+    ]
 }
