@@ -23,7 +23,7 @@
 	const create_btn_box = (classname, color) => {
 		const box = document.createElement("div");
 		box.style.display = "block";
-		box.style.position = "absolute";
+		box.style.position = "relative";
 		box.style.height = "auto";
 		box.style.width = "100%";
 		box.style.bottom = "0.0em";
@@ -323,7 +323,7 @@
 	}
 
 
-/*	// try removing announce area
+	/*	// try removing announce area
 	try {
 		remove_announce();
 	}
@@ -349,6 +349,8 @@
 		const delNode = document.getElementsByClassName("nicomment_inner_frame")[0];
 		if (delNode != undefined) {
 			delNode.parentNode.removeChild(delNode);
+			insertIframeBtnNode.disabled = "";
+			deleteIframeBtnNode.disabled = "true";
 		}
 	}, false)
 
@@ -359,6 +361,9 @@
 		const insNode = document.getElementsByClassName("nicomment_inner_frame")[0];
 		if (insNode == undefined) {
 			insert_nicomment_iframe(nicomment_outer_frame);
+			insertIframeBtnNode.disabled = "true";
+			deleteIframeBtnNode.disabled = "";
+
 		}
 	}, false)
 
