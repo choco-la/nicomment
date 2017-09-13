@@ -1,5 +1,13 @@
 # ChangeLog
 
+## Ver 1.4.3
+commit [b5ff5ca97c68f3937ff4b58a095d9e4a7b160674](https://github.com/choco-la/nicomment/commit/b5ff5ca97c68f3937ff4b58a095d9e4a7b160674)  
+* トゥート欄に操作パネルが重なるのを修正  
+* クリックできない場合にボタンをdisabledにするよう変更  
+* web/*全体で実行されるように変更    
+* 大きいアイコンの追加漏れを修正  
+
+
 ## Ver 1.4.2
 commit [282404736b9d46ca0af0b4115015599b996bf8aa](https://github.com/choco-la/nicomment/commit/282404736b9d46ca0af0b4115015599b996bf8aa)  
 * スペースキーでの再生/停止をサポート  
