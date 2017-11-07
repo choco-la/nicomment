@@ -25,6 +25,6 @@
 		}
 	}
 
-	window.onkeydown = key_shortcut();
+	window.addEventListener("keydown", key_shortcut(), false);
 
 })();
