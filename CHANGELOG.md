@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Ver 1.5.0
+commit [541186489e6c1009624d0b119c69d851511efe7e](https://github.com/choco-la/nicomment/commit/541186489e6c1009624d0b119c69d851511efe7e)  
+* ニコニコの埋め込み動画を再生を実装(Ctrl+Vを押してIDを入力/3rdパーティーのcookieの許可が必要)  
+
+
 ## Ver 1.4.3
 commit [b5ff5ca97c68f3937ff4b58a095d9e4a7b160674](https://github.com/choco-la/nicomment/commit/b5ff5ca97c68f3937ff4b58a095d9e4a7b160674)  
 * トゥート欄に操作パネルが重なるのを修正  

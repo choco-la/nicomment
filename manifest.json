@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "withNicome",
     "description": "Watch local video with nicomment",
-    "version": "1.4.3",
+    "version": "1.5.0",
     "homepage_url": "https://github.com/choco-la/nicomment",
     "icons": {
         "48": "icons/icon48.png",
@@ -22,7 +22,8 @@
                 "js/nicomment/movie.js",
                 "js/nicomment/mediaui.js",
                 "js/nicomment/backimgui.js",
-                "js/nicomment/keyshortcut.js"
+                "js/nicomment/keyshortcut.js",
+                "js/nicomment/embed_movie.js"
             ]
         },
         {
