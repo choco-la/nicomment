@@ -1,5 +1,14 @@
 # ChangeLog
 
+## Ver 2.0.0
+commit [19c2b476194e8ab786ba5cc6fc8dd7df3dc2cc81](https://github.com/choco-la/nicomment/commit/19c2b476194e8ab786ba5cc6fc8dd7df3dc2cc81)  
+* コードの全体的な書き直し  
+* UIの微調整  
+* web/* のページで操作パネルが消える問題の修正(暫定的)  
+* 複数ファイルのドロップ時に一つだけ再生するよう変更  
+
+
+
 ## Ver 1.5.0
 commit [541186489e6c1009624d0b119c69d851511efe7e](https://github.com/choco-la/nicomment/commit/541186489e6c1009624d0b119c69d851511efe7e)  
 * ニコニコの埋め込み動画を再生を実装(Ctrl+Vを押してIDを入力/3rdパーティーのcookieの許可が必要)  
