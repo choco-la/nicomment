@@ -1,0 +1,11 @@
+{
+  "name": "nicomment",
+  "version": "2.0.0",
+  "dependencies": {
+    "typescript": "^2.6.2"
+  },
+  "devDependencies": {
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0"
+  }
+}

@@ -1,1 +1,2 @@
-build/tmp.*/
+build
+node_modules
