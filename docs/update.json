@@ -1,38 +1,43 @@
 {
-	"addons": {
-		"withnicome@example.com": {
-			"updates": [
-				{
-					"version": "1.3",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.3/withnicome-1.3-an.fx.xpi",
-					"update_hash": "sha256:052350b6704c0453e7f4fbed269056cd1d514d2a2246a2527cc5548c9799b79c"
-				},
-				{
-					"version": "1.4",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4/withnicome-1.4-an.fx.xpi",
-					"update_hash": "sha256:b5d06c61207d889bc83fbc2302bd3936965859583970b60c898046b9eab25b52"
-				},
-				{
-					"version": "1.4.1",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.1/withnicome-1.4.1-an.fx.xpi",
-					"update_hash": "sha256:43d93939ef137394ab0f2764c9799aa02dc3ea396ca7d8ccc6662109b551ce9e"
-				},
-				{
-					"version": "1.4.2",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.2/withnicome-1.4.2-an.fx.xpi",
-					"update_hash": "sha256:5699636e94972df01a36152af3e870e48ef700532c7d11bd091f95fb54e068f5"
-				},
-				{
-					"version": "1.4.3",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.3/withnicome-1.4.3-an.fx.xpi",
-					"update_hash": "sha256:0ac0f1d426fd649f7fda53e5bcf7728af9ce1a608be35cc6c66bae7f4e43ff84"
-				},
-				{
-					"version": "1.5.0",
-					"update_link": "https://github.com/choco-la/nicomment/releases/download/1.5.0/withnicome-1.5.0-an.fx.xpi",
-					"update_hash": "sha256:66fe1f794c939d95cc9b3aa968667cb86c64de7e29464ad8ea7233124e1cee5b"
-				}
-			]
-		}
-	}
+  "addons": {
+    "withnicome@example.com": {
+      "updates": [
+        {
+          "version": "1.3",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.3/withnicome-1.3-an.fx.xpi",
+          "update_hash": "sha256:052350b6704c0453e7f4fbed269056cd1d514d2a2246a2527cc5548c9799b79c"
+        },
+        {
+          "version": "1.4",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.4/withnicome-1.4-an.fx.xpi",
+          "update_hash": "sha256:b5d06c61207d889bc83fbc2302bd3936965859583970b60c898046b9eab25b52"
+        },
+        {
+          "version": "1.4.1",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.1/withnicome-1.4.1-an.fx.xpi",
+          "update_hash": "sha256:43d93939ef137394ab0f2764c9799aa02dc3ea396ca7d8ccc6662109b551ce9e"
+        },
+        {
+          "version": "1.4.2",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.2/withnicome-1.4.2-an.fx.xpi",
+          "update_hash": "sha256:5699636e94972df01a36152af3e870e48ef700532c7d11bd091f95fb54e068f5"
+        },
+        {
+          "version": "1.4.3",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.4.3/withnicome-1.4.3-an.fx.xpi",
+          "update_hash": "sha256:0ac0f1d426fd649f7fda53e5bcf7728af9ce1a608be35cc6c66bae7f4e43ff84"
+        },
+        {
+          "version": "1.5.0",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/1.5.0/withnicome-1.5.0-an.fx.xpi",
+          "update_hash": "sha256:66fe1f794c939d95cc9b3aa968667cb86c64de7e29464ad8ea7233124e1cee5b"
+        },
+        {
+          "version": "2.0.0",
+          "update_link": "https://github.com/choco-la/nicomment/releases/download/2.0.0/withnicome-2.0.0-an.fx.xpi",
+          "update_hash": "sha256:fff65e90e12b8d551fbcfff1ea737da00d325c79e65cec88ce4007ccb3c25bea"
+        }
+      ]
+    }
+  }
 }
